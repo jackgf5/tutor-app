@@ -1,0 +1,3 @@
+-setup next auth with user roles
+-user account can switch between student and teacher role
+-protect routes
