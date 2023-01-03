@@ -9,20 +9,24 @@ const Navbar = async () => {
   const session = await unstable_getServerSession(authOptions);
 
   function handleContent(): JSX.Element {
-    if (session) {
+    if (session && session.user?.role && session.user.id) {
       return (
-        <div>
-          <RoleSwitch />
+        <div className="w-full h-full flex items-center ">
+          <RoleSwitch role={session.user?.role} id={session.user.id} />
           <SignOut />
         </div>
       );
     } else {
-      return <SignIn />;
+      return (
+        <div className=" w-full h-full flex items-center justify-center">
+          <SignIn />
+        </div>
+      );
     }
   }
 
   return (
-    <div className="w-full h-[70px] shadow-xl relative">{handleContent()}</div>
+    <div className="w-full h-[70px] shadow-sm relative">{handleContent()}</div>
   );
 };
 

@@ -1,0 +1,7 @@
+.button{
+@apply p-4  text-white text-xs w-20 h-10 cursor-pointer flex justify-center items-center font-bold hover:scale-105
+}
+
+.button2{
+@apply p-4 bg-blue-500  text-white text-xs w-20 h-10 cursor-pointer flex justify-center items-center font-bold hover:scale-105
+}
