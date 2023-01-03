@@ -43,6 +43,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  role          Role      @default(STUDENT)
   accounts      Account[]
   sessions      Session[]
 }
@@ -53,4 +54,10 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+  ADMIN
 }
