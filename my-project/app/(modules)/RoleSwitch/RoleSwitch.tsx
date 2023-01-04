@@ -22,7 +22,7 @@ const RoleSwitch = ({ role, id }: { role: string; id: string }) => {
     router.refresh();
   };
   return (
-    <div className="flex gap-4 mx-auto">
+    <div className="flex gap-4">
       <button
         onClick={() => {
           updateUserRole(role, "STUDENT", id);

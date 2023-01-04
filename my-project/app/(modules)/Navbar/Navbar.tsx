@@ -11,7 +11,7 @@ const Navbar = async () => {
   function handleContent(): JSX.Element {
     if (session && session.user?.role && session.user.id) {
       return (
-        <div className="w-full h-full flex items-center ">
+        <div className="w-full h-full flex items-center justify-center">
           <RoleSwitch role={session.user?.role} id={session.user.id} />
           <SignOut />
         </div>
