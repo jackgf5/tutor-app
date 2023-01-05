@@ -3,6 +3,7 @@ import React from "react";
 import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 import SignIn from "../Buttons/SignIn";
 import SignOut from "../Buttons/SignOut";
+import PageSwitch from "../PageSwitch/PageSwitch";
 import RoleSwitch from "../RoleSwitch/RoleSwitch";
 
 const Navbar = async () => {
@@ -11,7 +12,8 @@ const Navbar = async () => {
   function handleContent(): JSX.Element {
     if (session && session.user?.role && session.user.id) {
       return (
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="w-full h-full flex items-center justify-evenly gap-10">
+          <PageSwitch />
           <RoleSwitch role={session.user?.role} id={session.user.id} />
           <SignOut />
         </div>
@@ -26,7 +28,7 @@ const Navbar = async () => {
   }
 
   return (
-    <div className="w-full h-[70px] shadow-sm relative">{handleContent()}</div>
+    <div className="w-full h-[70px] shadow-sm border">{handleContent()}</div>
   );
 };
 

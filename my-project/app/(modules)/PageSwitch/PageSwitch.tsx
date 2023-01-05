@@ -7,7 +7,7 @@ const PageSwitch = () => {
   const router = useRouter();
 
   return (
-    <div className="flex gap-4 mx-auto justify-center items-center w-full h-screen">
+    <div className="flex gap-4 justify-center items-center">
       <button
         onClick={() => {
           router.push("/student");

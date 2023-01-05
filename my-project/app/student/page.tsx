@@ -7,11 +7,7 @@ const Page = async () => {
   if ((await roleCheck("STUDENT")) === false) {
     redirect("/");
   }
-  return (
-    <div>
-      <PageSwitch />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Page;

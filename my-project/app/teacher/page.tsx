@@ -2,14 +2,12 @@ import React from "react";
 import { roleCheck } from "../../lib/RoleCheck/RoleCheck";
 import { redirect } from "next/navigation";
 import PageSwitch from "../(modules)/PageSwitch/PageSwitch";
+import MultiTable from "../(modules)/MultiTable/MultiTable";
 
 const Page = async () => {
-  if ((await roleCheck("TEACHER")) === false) {
-    redirect("/");
-  }
   return (
     <div>
-      <PageSwitch />
+      <MultiTable />
     </div>
   );
 };

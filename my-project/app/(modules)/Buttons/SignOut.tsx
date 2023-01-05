@@ -10,7 +10,7 @@ const SignOut = () => {
       onClick={() => {
         signOut();
       }}
-      className={classNames(GeneralStyles.button2, "mr-4 absolute right-[2px]")}
+      className={classNames(GeneralStyles.button2, "mr-4 ")}
     >
       LOGOUT
     </div>
