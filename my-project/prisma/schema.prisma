@@ -48,6 +48,8 @@ model User {
   role          Role      @default(STUDENT)
   accounts      Account[]
   sessions      Session[]
+  lessonTeacher Lesson[]  @relation(name: "LessonTeacher")
+  lessonStudent Lesson[]  @relation(name: "LessonStudent")
 }
 
 model VerificationToken {
@@ -56,6 +58,19 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Lesson {
+  id        String @id @default(cuid())
+  teacher   User   @relation(name: "LessonTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  teacherId String
+  student   User   @relation(name: "LessonStudent", fields: [studentId], references: [id], onDelete: Cascade)
+  studentId String
+
+  startTime DateTime
+  endTime   DateTime
+  startDate DateTime
+  endDate   DateTime
 }
 
 enum Role {
