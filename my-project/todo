@@ -1,3 +1,14 @@
+AUTH:
+
 -setup next auth with user roles - DONE
 -user account can switch between student and teacher role - DONE
 -protect routes - DONE
+-protect api routes - DONE
+
+BOOKING:
+
+-students have page of teachers
+-students can book a session with a teacher
+-teacher can view all pending booking and accept or reject
+-teacher can set times available
+
