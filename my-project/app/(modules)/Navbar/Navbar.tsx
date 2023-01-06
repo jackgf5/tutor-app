@@ -27,9 +27,7 @@ const Navbar = async () => {
     }
   }
 
-  return (
-    <div className="w-full h-[70px] shadow-sm border">{handleContent()}</div>
-  );
+  return <div className="w-full h-[70px] shadow-sm">{handleContent()}</div>;
 };
 
 export default Navbar;
