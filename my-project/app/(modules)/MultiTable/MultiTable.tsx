@@ -2,6 +2,8 @@ import React from "react";
 import { prisma } from "../../../lib/prisma";
 import TableBody from "../TableBody/TableBody";
 import { User } from "@prisma/client";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 
 async function getTeachers(): Promise<User[]> {
   try {
@@ -15,6 +17,10 @@ async function getTeachers(): Promise<User[]> {
 
 const MultiTable = async () => {
   const teachers: User[] = await getTeachers();
+  const session = await unstable_getServerSession(authOptions);
+  const teachersFiltered = teachers.filter((teacher) => {
+    return teacher.id !== session?.user?.id;
+  });
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 shadow-sm m-5">
       <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
@@ -38,7 +44,7 @@ const MultiTable = async () => {
             ></th>
           </tr>
         </thead>
-        {teachers.map((teacher) => (
+        {teachersFiltered.map((teacher) => (
           <TableBody
             key={teacher.id}
             image={teacher.image}
@@ -46,6 +52,7 @@ const MultiTable = async () => {
             email={teacher.email}
             pricing={teacher.pricing}
             subjects={teacher.subjects}
+            id={teacher.id}
           />
         ))}
       </table>

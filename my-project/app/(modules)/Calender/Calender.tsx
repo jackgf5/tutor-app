@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
 import {
   add,
   eachDayOfInterval,
@@ -18,7 +20,16 @@ import {
 } from "date-fns";
 import classNames from "classnames";
 
+interface lessonData {
+  [key: string]: string;
+}
+
 const Calender = () => {
+  const { data: session } = useSession();
+  const pathname = usePathname();
+  const teacherId = pathname?.split("/")[3];
+  const studentId = session?.user?.id;
+
   let today = startOfToday(); // Mon Oct 6 2014 00:00:00
   let [currentMonth, setCurrentMonth] = useState(format(today, "MMM-yyyy")); //OCT-2014
   let firstDayCurrentMonth = parse(currentMonth, "MMM-yyyy", new Date()); //STRING -> DATE
@@ -96,10 +107,35 @@ const Calender = () => {
     }
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     console.log(selectedDay.toISOString());
-    console.log(selectedTime.startTime);
-    console.log(selectedTime.endTime);
+    if (teacherId && studentId && selectedTime && selectedDay) {
+      const lessonData = {
+        teacherId,
+        studentId,
+        startTime: selectedTime.startTime,
+        endTime: selectedTime.endTime,
+        date: selectedDay.toISOString(),
+      };
+
+      try {
+        let response = await fetch("/api/lessons", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(lessonData),
+        });
+
+        if (response) {
+          response = await response.json();
+        }
+      } catch (error) {
+        console.log("error");
+      }
+    } else {
+      console.log("not all info given");
+    }
   }
 
   return (

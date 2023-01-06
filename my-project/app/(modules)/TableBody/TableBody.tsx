@@ -3,6 +3,7 @@ import {
   ChatBubbleOvalLeftEllipsisIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
+import TableNavigateButtons from "../Buttons/TableNavigateButtons";
 
 interface Props {
   name: string | null;
@@ -10,9 +11,10 @@ interface Props {
   image: string | null;
   pricing: number;
   subjects: string[];
+  id: string;
 }
 
-const TableBody = ({ image, name, email, pricing, subjects }: Props) => {
+const TableBody = ({ image, name, email, pricing, subjects, id }: Props) => {
   return (
     <>
       <tbody className="divide-y divide-gray-100 border-t border-gray-100">
@@ -50,10 +52,7 @@ const TableBody = ({ image, name, email, pricing, subjects }: Props) => {
             </div>
           </td>
           <td className="px-6 py-4">
-            <div className="flex justify-end gap-4">
-              <ChatBubbleOvalLeftEllipsisIcon className="text-black h-6 w-6 cursor-pointer" />
-              <InformationCircleIcon className="text-black h-6 w-6 cursor-pointer" />
-            </div>
+            <TableNavigateButtons id={id} />
           </td>
         </tr>
       </tbody>

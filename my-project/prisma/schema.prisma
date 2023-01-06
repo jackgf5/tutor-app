@@ -61,16 +61,15 @@ model VerificationToken {
 }
 
 model Lesson {
-  id        String @id @default(cuid())
-  teacher   User   @relation(name: "LessonTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  teacher   User     @relation(name: "LessonTeacher", fields: [teacherId], references: [id], onDelete: Cascade)
   teacherId String
-  student   User   @relation(name: "LessonStudent", fields: [studentId], references: [id], onDelete: Cascade)
+  student   User     @relation(name: "LessonStudent", fields: [studentId], references: [id], onDelete: Cascade)
   studentId String
-
   startTime DateTime
   endTime   DateTime
-  startDate DateTime
-  endDate   DateTime
+  date      DateTime
+  confirmed Boolean  @default(false)
 }
 
 enum Role {
