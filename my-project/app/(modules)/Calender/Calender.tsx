@@ -129,6 +129,7 @@ const Calender = () => {
 
         if (response) {
           response = await response.json();
+          console.log(response);
         }
       } catch (error) {
         console.log("error");

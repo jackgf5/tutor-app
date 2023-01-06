@@ -8,7 +8,7 @@ AUTH:
 BOOKING:
 
 -students have page of teachers - DONE
--students can book a session with a teacher
+-students can book a session with a teacher - DONE
 -teacher can view all pending booking and accept or reject
 -teacher can set times available
 

@@ -12,21 +12,34 @@ export default async function handler(
       res.status(401).json({ msg: "unauhorised" });
     } else {
       const { teacherId, studentId, startTime, endTime, date } = req.body;
-
-      const lesson = await prisma.lesson.create({
-        data: {
-          date,
-          startTime,
-          endTime,
-          student: {
-            connect: { id: studentId },
-          },
-          teacher: {
-            connect: { id: teacherId },
-          },
+      const overlappingLessons = await prisma.lesson.findMany({
+        where: {
+          AND: [
+            { startTime: { lte: endTime } },
+            { endTime: { gte: startTime } },
+            { date: { equals: date } },
+          ],
         },
       });
-      res.status(200).json(lesson);
+
+      if (overlappingLessons.length > 0) {
+        res.status(409).json({ msg: "time taken" });
+      } else {
+        const lesson = await prisma.lesson.create({
+          data: {
+            date,
+            startTime,
+            endTime,
+            student: {
+              connect: { id: studentId },
+            },
+            teacher: {
+              connect: { id: teacherId },
+            },
+          },
+        });
+        res.status(200).json(lesson);
+      }
     }
   }
 }
