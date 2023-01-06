@@ -7,6 +7,7 @@ import MultiTable from "../(modules)/MultiTable/MultiTable";
 const Page = async () => {
   return (
     <div>
+      {/* @ts-expect-error Async Server Component */}
       <MultiTable />
     </div>
   );

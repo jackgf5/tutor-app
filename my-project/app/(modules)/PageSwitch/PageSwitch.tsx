@@ -37,6 +37,16 @@ const PageSwitch = () => {
       >
         ADMIN
       </button>
+
+      <button
+        onClick={() => {
+          router.push("/teacher/book");
+        }}
+        value={"BOOK"}
+        className={` bg-blue-500  ${GeneralStyles.button}`}
+      >
+        BOOK
+      </button>
     </div>
   );
 };
