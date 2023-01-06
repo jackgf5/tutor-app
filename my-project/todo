@@ -9,6 +9,7 @@ BOOKING:
 
 -students have page of teachers - DONE
 -students can book a session with a teacher - DONE
--teacher can view all pending booking and accept or reject
+-teacher can view all pending booking and accept or reject - DONE
+(if accepted, cancel all other bookings within that time frame)
 -teacher can set times available
 

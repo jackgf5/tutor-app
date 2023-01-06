@@ -7,6 +7,7 @@ const Page = async () => {
   if ((await roleCheck("STUDENT")) === false) {
     redirect("/");
   }
+
   return <div></div>;
 };
 

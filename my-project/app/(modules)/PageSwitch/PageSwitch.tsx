@@ -47,6 +47,16 @@ const PageSwitch = () => {
       >
         BOOK
       </button>
+
+      <button
+        onClick={() => {
+          router.push("/teacher/dashboard");
+        }}
+        value={"DASHBOARD"}
+        className={` bg-blue-500  ${GeneralStyles.button}`}
+      >
+        DASHBOARD
+      </button>
     </div>
   );
 };

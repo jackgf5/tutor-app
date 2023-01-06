@@ -15,6 +15,7 @@ export default async function handler(
       const overlappingLessons = await prisma.lesson.findMany({
         where: {
           AND: [
+            { teacherId: teacherId },
             { startTime: { lte: endTime } },
             { endTime: { gte: startTime } },
             { date: { equals: date } },
