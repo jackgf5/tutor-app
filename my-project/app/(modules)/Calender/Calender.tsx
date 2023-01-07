@@ -40,7 +40,8 @@ const Calender = () => {
   });
   let [selectedButtonStart, setSelectedButtonStart] = useState<string>();
   let [selectedButtonEnd, setSelectedButtonEnd] = useState<string>();
-
+  let [availableTimes, setAvailableTimes] = useState<string[]>([]);
+  let [loading, setLoading] = useState<Boolean>(true);
   let days = eachDayOfInterval({
     //Dates between time interval
     start: firstDayCurrentMonth,
@@ -67,21 +68,29 @@ const Calender = () => {
     "col-start-7",
   ];
 
-  const availableTimes = [
-    "1970-01-01T08:00:00.000Z",
-    "1970-01-01T09:00:00.000Z",
-    "1970-01-01T10:00:00.000Z",
-    "1970-01-01T11:00:00.000Z",
-    "1970-01-01T12:00:00.000Z",
-    "1970-01-01T13:00:00.000Z",
-    "1970-01-01T14:00:00.000Z",
-    "1970-01-01T15:00:00.000Z",
-    "1970-01-01T16:00:00.000Z",
-    "1970-01-01T17:00:00.000Z",
-    "1970-01-01T18:00:00.000Z",
-    "1970-01-01T19:00:00.000Z",
-    "1970-01-01T20:00:00.000Z",
-  ];
+  useEffect(() => {
+    async function getData() {
+      try {
+        let response = await fetch("/api/availabletimes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ teacherId }),
+        });
+
+        if (response) {
+          const response2 = await response.json();
+          setAvailableTimes(response2);
+          console.log(response2);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log("error");
+      }
+    }
+    getData();
+  }, []);
 
   function handleTimeClick(e: any, id: string) {
     if (selectedTime.startTime === "") {
@@ -224,36 +233,39 @@ const Calender = () => {
           </div>
         </div>
       </div>
-
-      <div className="w-1/2 h-full flex flex-col items-center justify-center">
-        <div className="flex flex-wrap gap-8 w-[80%] items-center justify-center  ">
-          {availableTimes.map((timeISO) => {
-            const isoToDate = parseISO(timeISO); //ISO -> DATE
-            const timeString = format(isoToDate, "HH:mm"); //DATE -> 08:00"
-            return (
-              <button
-                key={timeISO}
-                value={timeISO}
-                onClick={(e) => handleTimeClick(e, timeISO)}
-                className={`${
-                  selectedButtonStart === timeISO ||
-                  selectedButtonEnd === timeISO
-                    ? "border-4  border-emerald-500 scale-105 transition-all  "
-                    : "border-none"
-                }   min-w-[13rem] h-[4rem]  text-center cursor-pointer shadow-xl rounded-lg flex-1   `}
-              >
-                {timeString}
-              </button>
-            );
-          })}
+      {loading ? (
+        <div>loading...</div>
+      ) : (
+        <div className="w-1/2 h-full flex flex-col items-center justify-center">
+          <div className="flex flex-wrap gap-8 w-[80%] items-center justify-center  ">
+            {availableTimes.map((timeISO) => {
+              const date = new Date(timeISO);
+              const timeString = format(date, "HH:mm"); //DATE -> 08:00"
+              return (
+                <button
+                  key={timeISO}
+                  value={timeISO}
+                  onClick={(e) => handleTimeClick(e, timeISO)}
+                  className={`${
+                    selectedButtonStart === timeISO ||
+                    selectedButtonEnd === timeISO
+                      ? "border-4  border-emerald-500 scale-105 transition-all  "
+                      : "border-none"
+                  }   min-w-[13rem] h-[4rem]  text-center cursor-pointer shadow-xl rounded-lg flex-1   `}
+                >
+                  {timeString}
+                </button>
+              );
+            })}
+          </div>
+          <button
+            onClick={handleSubmit}
+            className=" mt-8 font-bold text-white bg-emerald-500 border-2 border-emerald-500 w-[80%] h-[4rem] rounded-2xl text-xl shadow-xl "
+          >
+            BOOK
+          </button>
         </div>
-        <button
-          onClick={handleSubmit}
-          className=" mt-8 font-bold text-white bg-emerald-500 border-2 border-emerald-500 w-[80%] h-[4rem] rounded-2xl text-xl shadow-xl "
-        >
-          BOOK
-        </button>
-      </div>
+      )}
     </div>
   );
 };

@@ -31,7 +31,7 @@ const TableBodyDashboard = ({
                   confirmed ? "bg-green-600" : "bg-red-600"
                 }`}
               ></span>
-              {confirmed.toString().toUpperCase()}
+              {confirmed ? "CONFIRMED" : "UNCONFIRMED"}
             </span>
           </td>
           <td className="px-6 py-4">{format(date, "dd-MM-yyyy")}</td>
