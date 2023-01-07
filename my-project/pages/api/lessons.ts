@@ -19,6 +19,7 @@ export default async function handler(
             { startTime: { lte: endTime } },
             { endTime: { gte: startTime } },
             { date: { equals: date } },
+            { confirmed: { equals: true } },
           ],
         },
       });

@@ -13,10 +13,26 @@ export default async function handler(
     } else {
       const { lessonId } = req.body;
       console.log(lessonId);
+
       const updatedLesson = await prisma.lesson.update({
         where: { id: lessonId },
         data: {
           confirmed: true,
+        },
+      });
+
+      const startTime = updatedLesson.startTime;
+      const endTime = updatedLesson.endTime;
+      const date = updatedLesson.date;
+
+      await prisma.lesson.deleteMany({
+        where: {
+          AND: [
+            { startTime: { lte: endTime } },
+            { endTime: { gte: startTime } },
+            { date: { equals: date } },
+            { confirmed: { equals: false } },
+          ],
         },
       });
 
