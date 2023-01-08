@@ -7,6 +7,7 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 import TableBodyDashboard from "../../(modules)/TableBody/TableBodyDashboard";
 import ChooseTimes from "../../(modules)/ChooseTimes/ChooseTimes";
+import TeacherCalender from "../../(modules)/TeacherCalender/TeacherCalender";
 
 async function getLessons() {
   const session = await unstable_getServerSession(authOptions);
@@ -39,7 +40,7 @@ const Page = async () => {
 
   return (
     <div className="w-full h-screen">
-      <div className=" w-full h-1/2 flex p-5 scrollbar-hide gap-3">
+      <div className=" w-full h-1/3 flex p-5 scrollbar-hide gap-3">
         <div className="overflow-scroll rounded-lg border border-gray-200 shadow-sm  w-1/2 h-full scrollbar-hide">
           <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
             <thead className="bg-gray-50">
@@ -112,7 +113,10 @@ const Page = async () => {
         </div>
       </div>
 
-      <ChooseTimes />
+      <div className=" flex w-full h-2/3 justify-center items-center p-5">
+        <TeacherCalender />
+        <ChooseTimes />
+      </div>
     </div>
   );
 };

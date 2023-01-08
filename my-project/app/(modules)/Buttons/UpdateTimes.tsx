@@ -49,9 +49,9 @@ const UpdateTimes = ({
         (teacherTime: Date) => teacherTime.getTime() === time.getTime()
       )
     ) {
-      return "bg-green-500";
+      return "bg-green-500 min-w-[5rem] h-[3rem]  text-center cursor-pointer shadow-xl rounded-lg flex-1 ";
     }
-    return "bg-red-500";
+    return "bg-red-500 min-w-[5rem] h-[3rem]  text-center cursor-pointer shadow-xl rounded-lg flex-1 ";
   };
 
   function handleTimeChange(currentTime: string) {
@@ -99,23 +99,28 @@ const UpdateTimes = ({
   };
 
   return (
-    <div className="w-1/2 flex flex-wrap gap-2 ">
-      {availableTimesAsDate.map((time) => {
-        const timeString = format(time, "HH:mm"); //DATE -> 08:00"
-        return (
-          <button
-            key={time.toISOString()}
-            value={time.toISOString()}
-            className={`${getClassName(time)} text-white p-4`}
-            onClick={(e) => {
-              handleTimeChange(e.currentTarget.value);
-            }}
-          >
-            {timeString}
-          </button>
-        );
-      })}
-      <button className={GeneralStyles.button2} onClick={updatedTimes}>
+    <div className="w-1/2">
+      <div className="w-full flex flex-wrap gap-2 ">
+        {availableTimesAsDate.map((time) => {
+          const timeString = format(time, "HH:mm"); //DATE -> 08:00"
+          return (
+            <button
+              key={time.toISOString()}
+              value={time.toISOString()}
+              className={`${getClassName(time)} text-white p-4`}
+              onClick={(e) => {
+                handleTimeChange(e.currentTarget.value);
+              }}
+            >
+              {timeString}
+            </button>
+          );
+        })}
+      </div>
+      <button
+        className="bg-blue-500 w-full h-[3rem]  text-white text-center cursor-pointer shadow-xl rounded-lg flex-1 mt-4"
+        onClick={updatedTimes}
+      >
         here
       </button>
     </div>

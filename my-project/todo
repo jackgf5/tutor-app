@@ -1,15 +1,51 @@
-AUTH:
+Calendar:
 
--setup next auth with user roles - DONE
--user account can switch between student and teacher role - DONE
--protect routes - DONE
--protect api routes - DONE
+Create a calendar component using a library such as FullCalendar or React-Calendar. - Done
+Allow teachers to mark their availability on the calendar by blocking off certain timeslots. - Done
+Store the availability information in a database or a cache. - Done
+Add a way for teachers to add and edit their availability, such as by clicking and dragging on the calendar. - DONE
+Display the calendar on the teacher's profile page and allow them to view and manage their upcoming lessons.
+Messaging system:
 
-BOOKING:
+Set up a database to store messages between students and teachers.
+Create a messaging interface where users can send and receive messages.
+Allow users to view their conversation history with each person they have talked to.
+Implement notification features to alert users when they receive a new message.
+Payment system:
 
--students have page of teachers - DONE
--students can book a session with a teacher - DONE
--teacher can view all pending booking and accept or reject - DONE
-(if accepted, cancel all other bookings within that time frame)
--teacher can set times available
+Integrate a payment gateway such as Stripe or PayPal into your application.
+Allow students to enter their payment information and choose a payment method when booking a lesson.
+Process the payment when the lesson is confirmed by the teacher.
+Consider adding a feature to handle refunds if a lesson is cancelled or rescheduled.
+Reviews and ratings:
 
+Set up a database to store reviews and ratings for each teacher.
+Allow students to write and submit a review and rating after taking a lesson.
+Display the reviews and ratings on each teacher's profile page.
+Consider implementing moderation features to ensure that the reviews are genuine and appropriate.
+Notification system:
+
+Set up a notification database to store notification records.
+Implement a way to send notifications to users, such as through email or push notifications.
+Consider adding settings for users to customize their notification preferences.
+Search function:
+
+Set up a database to store information about each teacher, such as their location, subjects they teach, and availability.
+Implement a search bar on the homepage where students can enter their search criteria.
+Use the search criteria to query the database and return a list of matching teachers.
+Consider adding filters or sorting options to help students narrow down their search results.
+Teacher profiles:
+
+Create a personal profile page for each teacher where they can list their qualifications, experience, and areas of expertise.
+Allow teachers to edit their profile information and add a profile picture.
+Display the profile information on the teacher's profile page.
+Browsing available teachers:
+
+Create a page where students can browse through a list of available teachers.
+Use the information in the database to display each teacher's profile, including their qualifications, subjects, and availability.
+Consider adding filters or sorting options to help students find the right teacher for their needs.
+Cancelling or rescheduling lessons:
+
+Allow students to cancel or reschedule a lesson through the messaging system or a separate cancel/reschedule form.
+Update the teacher's calendar and availability to reflect the change.
+Consider adding policies for cancellations and reschedules, such as requiring a certain amount of notice or charging a fee.

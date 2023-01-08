@@ -43,8 +43,8 @@ const ChooseTimes = async () => {
     time.toISOString()
   );
   return (
-    <div className=" w-full p-5">
-      <div className="w-1/2">
+    <div className=" w-1/3">
+      <div className="w-full flex items-center justify-center">
         <UpdateTimes
           teacherAvailableTimes={teacherAvailableTimesAsStrings}
           userId={session?.user?.id as string}
