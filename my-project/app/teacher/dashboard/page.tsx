@@ -1,16 +1,15 @@
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import Calender from "../../(modules)/Calender/Calender";
 import { prisma } from "../../../lib/prisma";
 import { roleCheck } from "../../../lib/RoleCheck/RoleCheck";
-import { unstable_getServerSession } from "next-auth";
+import { Session, unstable_getServerSession } from "next-auth";
 import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 import TableBodyDashboard from "../../(modules)/TableBody/TableBodyDashboard";
 import ChooseTimes from "../../(modules)/ChooseTimes/ChooseTimes";
 import TeacherCalender from "../../(modules)/TeacherCalender/TeacherCalender";
 
-async function getLessons() {
-  const session = await unstable_getServerSession(authOptions);
+async function getLessons(session: Session | null) {
   const lessons = await prisma.lesson.findMany({
     where: {
       teacher: {
@@ -25,10 +24,11 @@ async function getLessons() {
 }
 
 const Page = async () => {
+  const session = await unstable_getServerSession(authOptions);
   if ((await roleCheck("TEACHER")) === false) {
     redirect("/");
   }
-  const lessons = await getLessons();
+  const lessons = await getLessons(session);
 
   const confirmedLessons = lessons.filter((lesson) => {
     return lesson.confirmed === true;
@@ -114,8 +114,13 @@ const Page = async () => {
       </div>
 
       <div className=" flex w-full h-2/3 justify-center items-center p-5">
-        <TeacherCalender />
-        <ChooseTimes />
+        <Suspense fallback={<div>loading calender...</div>}>
+          <TeacherCalender session={session} />
+        </Suspense>
+        <Suspense fallback={<div>loading times...</div>}>
+          {/* @ts-expect-error Async Server Component */}
+          <ChooseTimes session={session} />
+        </Suspense>
       </div>
     </div>
   );

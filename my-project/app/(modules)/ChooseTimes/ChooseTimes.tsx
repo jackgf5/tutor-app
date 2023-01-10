@@ -4,6 +4,7 @@ import { prisma } from "../../../lib/prisma";
 import { unstable_getServerSession } from "next-auth/next";
 import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 import UpdateTimes from "../Buttons/UpdateTimes";
+import { Session } from "next-auth";
 
 async function getTeacherAvailableTimes(session: any) {
   const teacher = await prisma.user.findUnique({
@@ -15,8 +16,7 @@ async function getTeacherAvailableTimes(session: any) {
   return teacherAvailableTimes;
 }
 
-const ChooseTimes = async () => {
-  const session = await unstable_getServerSession(authOptions);
+const ChooseTimes = async ({ session }: { session: Session | null }) => {
   const availableTimes = [
     "1970-01-01T08:00:00.000Z",
     "1970-01-01T09:00:00.000Z",

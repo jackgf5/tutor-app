@@ -19,7 +19,7 @@ const Lesson = ({ lesson, callback }: any) => {
 
       if (response) {
         response = await response.json();
-        callback();
+        await Promise.all([callback(), router.refresh()]);
       }
     } catch (error) {
       console.log("error");

@@ -21,9 +21,9 @@ import {
 import classNames from "classnames";
 import Lesson from "../Lesson/Lesson";
 import { useRouter } from "next/navigation";
+import { Session } from "next-auth";
 
-const Calender = () => {
-  const { data: session } = useSession();
+const Calender = ({ session }: { session: Session | null }) => {
   const teacherId = session?.user?.id;
   const router = useRouter();
   let today = startOfToday(); // Mon Oct 6 2014 00:00:00

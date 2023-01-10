@@ -11,9 +11,10 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body>
-        {/* @ts-expect-error Async Server Component */}
-        <Navbar />
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

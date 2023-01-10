@@ -2,61 +2,36 @@
 
 import GeneralStyles from "../../(styles)/general.module.css";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const PageSwitch = () => {
-  const router = useRouter();
-
   return (
     <div className="flex gap-4 justify-center items-center">
-      <button
-        onClick={() => {
-          router.push("/student");
-        }}
-        value={"STUDENT"}
-        className={`bg-blue-500  ${GeneralStyles.button}`}
-      >
+      <Link href="/student" className={`bg-blue-500  ${GeneralStyles.button}`}>
         STUDENT
-      </button>
+      </Link>
 
-      <button
-        onClick={() => {
-          router.push("/teacher");
-        }}
-        value={"TEACHER"}
-        className={` bg-blue-500 ${GeneralStyles.button}`}
-      >
+      <Link href="/teacher" className={` bg-blue-500 ${GeneralStyles.button}`}>
         TEACHER
-      </button>
+      </Link>
 
-      <button
-        onClick={() => {
-          router.push("/admin");
-        }}
-        value={"ADMIN"}
-        className={` bg-blue-500  ${GeneralStyles.button}`}
-      >
+      <Link href="/admin" className={` bg-blue-500  ${GeneralStyles.button}`}>
         ADMIN
-      </button>
+      </Link>
 
-      <button
-        onClick={() => {
-          router.push("/teacher/book");
-        }}
-        value={"BOOK"}
+      <Link
+        href="/teacher/book"
         className={` bg-blue-500  ${GeneralStyles.button}`}
       >
         BOOK
-      </button>
+      </Link>
 
-      <button
-        onClick={() => {
-          router.push("/teacher/dashboard");
-        }}
-        value={"DASHBOARD"}
+      <Link
+        href="/teacher/dashboard"
         className={` bg-blue-500  ${GeneralStyles.button}`}
       >
         DASHBOARD
-      </button>
+      </Link>
     </div>
   );
 };

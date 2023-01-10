@@ -18,7 +18,7 @@ Allow students to enter their payment information and choose a payment method wh
 Process the payment when the lesson is confirmed by the teacher.
 Consider adding a feature to handle refunds if a lesson is cancelled or rescheduled.
 Reviews and ratings:
-
+c
 Set up a database to store reviews and ratings for each teacher.
 Allow students to write and submit a review and rating after taking a lesson.
 Display the reviews and ratings on each teacher's profile page.
@@ -49,3 +49,5 @@ Cancelling or rescheduling lessons:
 Allow students to cancel or reschedule a lesson through the messaging system or a separate cancel/reschedule form.
 Update the teacher's calendar and availability to reflect the change.
 Consider adding policies for cancellations and reschedules, such as requiring a certain amount of notice or charging a fee.
+
+2.53 seconds
