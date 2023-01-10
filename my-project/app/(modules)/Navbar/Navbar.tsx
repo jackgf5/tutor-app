@@ -1,41 +1,11 @@
-"use client";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../../../pages/api/auth/[...nextauth]";
+import SignOut from "../Buttons/SignOut";
+import ProfileNav from "../ProfileNav/ProfileNav";
+import { handleLinkRender } from "../LinkRender/LinkRender";
 
-import { signIn, signOut, useSession } from "next-auth/react";
-import { useCallback, useEffect, useState } from "react";
-
-const Navbar = () => {
-  const { data: session } = useSession();
-  const [role, setRole] = useState<string>("");
-
-  useEffect(() => {
-    if (session) {
-      setRole(session?.user?.role as string);
-    }
-  }, [session]);
-
-  const handleRoleChange = async () => {
-    const currentRole = role;
-    const id = session?.user?.id;
-    let roleToChange;
-
-    if (currentRole === "STUDENT") {
-      roleToChange = "TEACHER";
-    } else if (currentRole === "TEACHER") {
-      roleToChange = "STUDENT";
-    } else {
-      roleToChange = currentRole;
-    }
-
-    const res = await fetch("/api/auth/roles", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ currentRole, roleToChange, id }),
-    });
-    const response = await res.json();
-    setRole(response.role);
-  };
+const Navbar = async () => {
+  const session = await unstable_getServerSession(authOptions);
 
   return (
     <div className="navbar bg-base-100">
@@ -57,27 +27,14 @@ const Navbar = () => {
               />
             </svg>
           </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a>Homepage</a>
-            </li>
-            <li>
-              <a>Portfolio</a>
-            </li>
-            <li>
-              <a>About</a>
-            </li>
-          </ul>
+          {handleLinkRender(session)}
         </div>
       </div>
       <div className="navbar-center">
         <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
       </div>
 
-      {session && role ? (
+      {session ? (
         <div className="navbar-end">
           <button className="btn btn-ghost btn-circle">
             <div className="indicator">
@@ -98,53 +55,10 @@ const Navbar = () => {
               <span className="badge badge-xs badge-primary indicator-item"></span>
             </div>
           </button>
-
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-8 rounded-full">
-                <img src="https://placeimg.com/80/80/people" />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a className="justify-between">
-                  {role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()}
-                  <input
-                    type="checkbox"
-                    className="toggle toggle-primary"
-                    onChange={handleRoleChange}
-                  />
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a
-                  onClick={() => {
-                    signOut();
-                  }}
-                >
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </div>
+          <ProfileNav session={session} />
         </div>
       ) : (
-        <div className="navbar-end">
-          <button
-            className=" btn btn-primary btn-sm mr-4"
-            onClick={() => {
-              signIn("google");
-            }}
-          >
-            SIGN IN
-          </button>
-        </div>
+        <SignOut />
       )}
     </div>
   );

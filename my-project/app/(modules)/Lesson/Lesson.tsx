@@ -28,21 +28,21 @@ const Lesson = ({ lesson, callback }: any) => {
 
   return (
     <tr className="hover:bg-gray-50 h-[20%] w-full">
-      <td className="px-6 py-4">{lesson.student.name}</td>
-      <td className="px-6 py-4 h-1/2">
+      <td className="px-6 py-4 text-center">{lesson.student.name}</td>
+      <td className="px-6 py-4 text-center">
         {format(parseISO(lesson.date), "dd-MM-yyyy")}
       </td>
-      <td className="px-6 py-4">
+      <td className="px-6 py-4 text-center">
         {format(parseISO(lesson.startTime), "HH:mm") +
           "-" +
           format(parseISO(lesson.endTime), "HH:mm")}
       </td>
-      <td className="px-6 py-4">
+      <td className="px-6 py-4 text-center">
         <button
           onClick={() => {
             deleteLesson(lesson.id);
           }}
-          className="bg-red-500 w-2/3 h-[3rem]  text-white text-center cursor-pointer shadow-xl rounded-lg flex-1 mt-4 font-bold"
+          className=" btn btn-primary btn-sm "
         >
           Cancel
         </button>

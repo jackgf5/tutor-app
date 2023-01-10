@@ -1,18 +1,19 @@
 "use client";
+
+import { signIn } from "next-auth/react";
 import React from "react";
-import { signOut } from "next-auth/react";
-import GeneralStyles from "../../(styles)/general.module.css";
-import classNames from "classnames";
 
 const SignOut = () => {
   return (
-    <div
-      onClick={() => {
-        signOut();
-      }}
-      className={classNames(GeneralStyles.button2, "mr-4 ")}
-    >
-      LOGOUT
+    <div className="navbar-end">
+      <button
+        className=" btn btn-primary btn-sm mr-4"
+        onClick={() => {
+          signIn("google");
+        }}
+      >
+        SIGN IN
+      </button>
     </div>
   );
 };

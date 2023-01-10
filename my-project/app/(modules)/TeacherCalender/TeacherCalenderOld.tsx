@@ -89,9 +89,9 @@ const Calender = ({ session }: { session: Session | null }) => {
   }, []);
 
   return (
-    <div className="flex mt-20 w-full flex-col  h-full items-center justify-center gap-4 md:flex-row md:w-2/3">
-      <div className="flex flex-col  h-full justify-center items-center gap-2 w-full md:w-2/3">
-        <div className="flex justify-center  h-[5rem] w-[100%] shadow-md rounded-lg bg-white  ">
+    <div className="flex w-2/3 h-full items-center justify-center">
+      <div className="flex flex-col  h-full justify-center items-center gap-2 w-1/2">
+        <div className="flex justify-center  h-[5rem] w-[100%] shadow-xl rounded-lg bg-white   ">
           <button
             type="button"
             onClick={previousMonth}
@@ -118,7 +118,7 @@ const Calender = ({ session }: { session: Session | null }) => {
         {loading && loading2 ? (
           <div>loading...</div>
         ) : (
-          <div className=" w-[100%] h-[80%] p-10 shadow-md rounded-xl bg-white  ">
+          <div className=" w-[100%] h-[70%] p-10 shadow-xl rounded-xl bg-white  ">
             <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
               <div>S</div>
               <div>M</div>
@@ -147,7 +147,7 @@ const Calender = ({ session }: { session: Session | null }) => {
                       isEqual(day, selectedDay) && "text-white",
                       !isEqual(day, selectedDay) &&
                         isToday(day) &&
-                        "text-[#570DF8]",
+                        "text-emerald-500",
                       !isEqual(day, selectedDay) &&
                         !isToday(day) &&
                         isSameMonth(day, firstDayCurrentMonth) &&
@@ -158,10 +158,10 @@ const Calender = ({ session }: { session: Session | null }) => {
                         "text-gray-400",
                       isEqual(day, selectedDay) &&
                         isToday(day) &&
-                        "bg-[#570DF8]",
+                        "bg-emerald-500",
                       isEqual(day, selectedDay) &&
                         !isToday(day) &&
-                        "bg-[#570DF8]",
+                        "bg-emerald-500",
                       !isEqual(day, selectedDay) && "hover:bg-gray-200",
                       (isEqual(day, selectedDay) || isToday(day)) &&
                         "font-semibold",
@@ -177,7 +177,7 @@ const Calender = ({ session }: { session: Session | null }) => {
                     {teacherLessons.some((lesson: any) =>
                       isSameDay(parseISO(lesson.date), day)
                     ) && (
-                      <div className="w-1 h-1 rounded-full bg-[#570DF8]"></div>
+                      <div className="w-1 h-1 rounded-full bg-sky-500"></div>
                     )}
                   </div>
                 </div>
@@ -187,29 +187,39 @@ const Calender = ({ session }: { session: Session | null }) => {
         )}
       </div>
 
-      <div className=" h-[94%] w-full shadow-md rounded-xl md:w-full">
-        <table className="table-auto overflow-y-scroll w-full text-sm">
-          <thead className="">
+      <table className="border-collapse text-left text-sm overflow-scroll scrollbar-hide h-[5rem] w-[100%] shadow-xl rounded-lg bg-white">
+        <thead className="bg-gray-50">
+          <tr>
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+              Student
+            </th>
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+              Date
+            </th>
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+              Time
+            </th>
+            <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+              Subject
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-4 font-medium text-gray-900"
+            ></th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-100 h-[5rem] w-[100%]  rounded-lg bg-white ">
+          {selectedDaylessons.length > 0 ? (
+            selectedDaylessons.map((lesson) => (
+              <Lesson key={lesson.id} lesson={lesson} callback={getData} />
+            ))
+          ) : (
             <tr>
-              <th className="px-4 py-2 h-[5rem]">Student</th>
-              <th className="px-4 py-2 h-[5rem]">Date</th>
-              <th className="px-4 py-2 h-[5rem]">Time</th>
-              <th className="px-4 py-2 h-[5rem]">Subject</th>
+              <th></th>
             </tr>
-          </thead>
-          <tbody>
-            {selectedDaylessons.length > 0 ? (
-              selectedDaylessons.map((lesson) => (
-                <Lesson key={lesson.id} lesson={lesson} callback={getData} />
-              ))
-            ) : (
-              <tr>
-                <th></th>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };
