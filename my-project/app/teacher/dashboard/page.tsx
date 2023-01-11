@@ -39,7 +39,7 @@ const Page = async () => {
   });
 
   return (
-    <div className="w-full h-screen ">
+    <div className="w-full h-screen scrollbar-hide flex">
       <div className=" flex w-full h-2/3 justify-center items-center p-5">
         <TeacherCalender session={session} />
       </div>

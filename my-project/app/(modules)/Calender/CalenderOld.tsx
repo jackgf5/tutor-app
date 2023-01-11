@@ -20,7 +20,6 @@ import {
 } from "date-fns";
 import classNames from "classnames";
 import { Lesson } from "@prisma/client";
-import LessonStudent from "../Lesson/LessonStudent";
 
 interface lessonData {
   [key: string]: string;
@@ -40,7 +39,7 @@ const Calender = () => {
     startTime: "",
     endTime: "",
   });
-  let [studentLessons, setStudentLessons] = useState<Lesson[]>([]);
+  let [studentLessons, setStudentLessons] = useState<Lesson[]>();
   let [selectedButtonStart, setSelectedButtonStart] = useState<string>();
   let [selectedButtonEnd, setSelectedButtonEnd] = useState<string>();
   let [availableTimes, setAvailableTimes] = useState<string[]>([]);
@@ -62,9 +61,6 @@ const Calender = () => {
     setCurrentMonth(format(firstDayNextMonth, "MMM-yyyy"));
   }
 
-  const selectedDaylessons = studentLessons.filter((lesson) =>
-    isSameDay(parseISO(lesson.date), selectedDay)
-  );
   let colStartClasses = [
     "",
     "col-start-2",
@@ -89,6 +85,7 @@ const Calender = () => {
         if (response) {
           const response2 = await response.json();
           setAvailableTimes(response2);
+          console.log(response2);
           setLoading(false);
         }
       } catch (error) {
@@ -204,7 +201,7 @@ const Calender = () => {
             <ChevronRightIcon className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
-        {loading && loading2 && studentLessons === undefined ? (
+        {loading && loading2 && !studentLessons ? (
           <div className=" w-[100%] h-[85%] p-10 shadow-md rounded-xl bg-white  "></div>
         ) : (
           <div className=" w-[100%] h-[85%] p-10 shadow-md rounded-xl bg-white  ">
@@ -261,17 +258,13 @@ const Calender = () => {
                     </time>
                   </button>
 
-                  {studentLessons !== undefined ? (
-                    <div className="w-1 h-1 mx-auto mt-1">
-                      {studentLessons.some((lesson: any) =>
-                        isSameDay(parseISO(lesson.date), day)
-                      ) && (
-                        <div className="w-1 h-1 rounded-full bg-[#570DF8]"></div>
-                      )}
-                    </div>
-                  ) : (
-                    <div></div>
-                  )}
+                  <div className="w-1 h-1 mx-auto mt-1">
+                    {studentLessons!.some((lesson: any) =>
+                      isSameDay(parseISO(lesson.date), day)
+                    ) && (
+                      <div className="w-1 h-1 rounded-full bg-[#570DF8]"></div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -279,32 +272,10 @@ const Calender = () => {
         )}
       </div>
       {loading ? (
-        <div className=" h-full w-full shadow-md rounded-xl md:w-full"></div>
+        <div>loading...</div>
       ) : (
-        <div className=" h-full w-full shadow-md rounded-xl md:w-full flex items-center justify-center flex-col">
-          <table className="table-auto overflow-y-scroll w-full text-sm h-1/3 scrollbar-hide">
-            <thead className="">
-              <tr>
-                <th className="px-4 py-2 h-[5rem]">Student</th>
-                <th className="px-4 py-2 h-[5rem]">Date</th>
-                <th className="px-4 py-2 h-[5rem]">Time</th>
-                <th className="px-4 py-2 h-[5rem]">Subject</th>
-              </tr>
-            </thead>
-            <tbody>
-              {selectedDaylessons !== undefined &&
-              selectedDaylessons.length > 0 ? (
-                selectedDaylessons.map((lesson) => (
-                  <LessonStudent key={lesson.id} lesson={lesson} />
-                ))
-              ) : (
-                <tr>
-                  <th></th>
-                </tr>
-              )}
-            </tbody>
-          </table>
-          <div className=" w-full text-sm h-2/3 flex flex-wrap p-5 gap-4 itesm-center justify-center">
+        <div className="w-1/2 h-full flex flex-col items-center justify-center">
+          <div className="flex flex-wrap gap-8 w-[80%] items-center justify-center  ">
             {availableTimes.map((timeISO) => {
               const date = new Date(timeISO);
               const timeString = format(date, "HH:mm"); //DATE -> 08:00"
@@ -316,16 +287,21 @@ const Calender = () => {
                   className={`${
                     selectedButtonStart === timeISO ||
                     selectedButtonEnd === timeISO
-                      ? " bg-[#570DF8] scale-105 transition-all   "
-                      : "bg-neutral "
-                  } btn btn-primary border-none min-w-[30%] flex-1   `}
+                      ? "border-4  border-emerald-500 scale-105 transition-all  "
+                      : "border-none"
+                  }   min-w-[13rem] h-[4rem]  text-center cursor-pointer shadow-xl rounded-lg flex-1   `}
                 >
                   {timeString}
                 </button>
               );
             })}
-            <button className=" btn btn-primary btn-xl w-full  ">Cancel</button>
           </div>
+          <button
+            onClick={handleSubmit}
+            className=" mt-8 font-bold text-white bg-emerald-500 border-2 border-emerald-500 w-[80%] h-[4rem] rounded-2xl text-xl shadow-xl "
+          >
+            BOOK
+          </button>
         </div>
       )}
     </div>

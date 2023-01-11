@@ -89,9 +89,9 @@ const Calender = ({ session }: { session: Session | null }) => {
   }, []);
 
   return (
-    <div className="flex mt-20 w-full flex-col  h-full items-center justify-center gap-4 md:flex-row md:w-2/3">
+    <div className="flex mt-[10rem] w-full flex-col  h-full items-center justify-center gap-4 md:flex-row md:w-2/3 scrollbar-hid md:mt-[14rem]">
       <div className="flex flex-col  h-full justify-center items-center gap-2 w-full md:w-2/3">
-        <div className="flex justify-center  h-[5rem] w-[100%] shadow-md rounded-lg bg-white  ">
+        <div className="flex justify-center  h-[15%] w-[100%] shadow-md rounded-lg bg-white  ">
           <button
             type="button"
             onClick={previousMonth}
@@ -116,9 +116,9 @@ const Calender = ({ session }: { session: Session | null }) => {
           </button>
         </div>
         {loading && loading2 ? (
-          <div>loading...</div>
+          <div className=" w-[100%] h-[85%] p-10 shadow-md rounded-xl bg-white  "></div>
         ) : (
-          <div className=" w-[100%] h-[80%] p-10 shadow-md rounded-xl bg-white  ">
+          <div className=" w-[100%] h-[85%] p-10 shadow-md rounded-xl bg-white  ">
             <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
               <div>S</div>
               <div>M</div>
@@ -187,7 +187,7 @@ const Calender = ({ session }: { session: Session | null }) => {
         )}
       </div>
 
-      <div className=" h-[94%] w-full shadow-md rounded-xl md:w-full">
+      <div className=" h-full w-full shadow-md rounded-xl md:w-full">
         <table className="table-auto overflow-y-scroll w-full text-sm">
           <thead className="">
             <tr>

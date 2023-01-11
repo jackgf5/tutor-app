@@ -41,7 +41,7 @@ const ProfileNav = ({ session }: { session: Session }) => {
     <div className="dropdown dropdown-end">
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-8 rounded-full">
-          <img src="https://placeimg.com/80/80/people" />
+          <img src={session?.user?.image as string} className="w-5 h-5"></img>
         </div>
       </label>
       <ul

@@ -18,8 +18,8 @@ const TableBody = ({ image, name, email, pricing, subjects, id }: Props) => {
   return (
     <>
       <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-        <tr className="hover:bg-gray-50">
-          <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
+        <tr className="hover:bg-gray-50 text-center">
+          <th className="flex gap-3 px-6 py-4 font-normal text-gray-900 text-center">
             <div className="relative h-10 w-10">
               <img
                 className="h-full w-full rounded-full object-cover object-center"
@@ -33,16 +33,16 @@ const TableBody = ({ image, name, email, pricing, subjects, id }: Props) => {
               <div className="text-gray-400">{email}</div>
             </div>
           </th>
-          <td className="px-6 py-4">
+          <td className="px-6 py-4 text-center">
             <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600">
               <span className="h-1.5 w-1.5 rounded-full bg-green-600"></span>
               Active
             </span>
           </td>
-          <td className="px-6 py-4">
+          <td className="px-6 py-4 text-center">
             ${pricing} <span className="text-sm">/hr</span>
           </td>
-          <td className="px-6 py-4">
+          <td className="px-6 py-4 text-center">
             <div className="flex gap-2">
               {subjects.map((subject) => (
                 <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">

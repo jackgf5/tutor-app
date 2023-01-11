@@ -8,7 +8,7 @@ const Navbar = async () => {
   const session = await unstable_getServerSession(authOptions);
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 shadow-md relative">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -31,7 +31,9 @@ const Navbar = async () => {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+        <a className="btn btn-ghost normal-case text-xl">
+          <span className="text-[#570DF8]">Onetime</span>Tutor
+        </a>
       </div>
 
       {session ? (
